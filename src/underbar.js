@@ -86,12 +86,11 @@
     //COME BACK IF TIME
     var filterElements = [];
 
-    for (var i = 0; i < collection.length; i++) {
-      if (test(collection[i])) {
-        filterElements.push(collection[i]);
+    _.each(collection, function (item) {
+      if (test(item)) {
+        filterElements.push(item);
       }
-    }
-
+    });
     return filterElements;
   };
 
@@ -137,6 +136,11 @@
 
   // Return the results of applying an iterator to each element.
   _.map = function(collection, iterator) {
+    var returnArray = [];
+    _.each(collection, function (item) {
+      returnArray.push(iterator(item));
+    });
+    return returnArray;
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
