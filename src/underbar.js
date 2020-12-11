@@ -43,7 +43,7 @@
     } else if (n > array.length) {
       return array;
     } else {
-    return n === undefined ? array[array.length - 1] : array.slice(n - 1);
+      return n === undefined ? array[array.length - 1] : array.slice(n - 1);
     }
   };
 
@@ -83,6 +83,15 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
+    var filterElements = [];
+
+    for (var i = 0; i < collection.length; i++) {
+      if (test(collection[i])) {
+        filterElements.push(collection[i]);
+      }
+    }
+
+    return filterElements;
   };
 
   // Return all elements of an array that don't pass a truth test.
