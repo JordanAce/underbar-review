@@ -187,6 +187,9 @@
   _.reduce = function(collection, iterator, accumulator) {
 
     //if no accumulator
+    if (!Array.isArray(collection)) {
+      collection = Object.values(collection);
+    }
     if (arguments.length < 3) {
       accumulator = collection[0];
       for (var i = 1; i < collection.length; i++) {
@@ -198,8 +201,6 @@
       }
     }
     return accumulator;
-
-
     //accumulator is going equal collection[0]
     //iterate through collection beginning at index 1
     //accumulator equal applying iterator to collection at that index
