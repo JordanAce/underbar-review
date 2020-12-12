@@ -248,6 +248,25 @@
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
+    var falseCounter = 0;
+    if (typeof(arguments[1]) !== 'function') {
+      _.each(collection, function (item) {
+        if (!item) {
+          falseCounter++;
+        }
+      });
+    } else {
+      _.each(collection, function (item) {
+        if (!iterator(item)) {
+          falseCounter++;
+        }
+      });
+    }
+    if (falseCounter === collection.length) {
+      return false;
+    } else {
+      return true;
+    }
     // TIP: There's a very clever way to re-use every() here.
   };
 
@@ -271,11 +290,28 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+    //iterate over arguments length
+    for (var i = 0; i < arguments.length; i++) {
+      for (var key in arguments[i]) {
+        obj[key] = arguments[i][key];
+      }
+    }
+    return obj;
+    //for each extra object passed in, add that key and value to the original object
+    //return object
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    for (var i = 0; i < arguments.length; i++) {
+      for (var key in arguments[i]) {
+        if (obj[key] === undefined) {
+          obj[key] = arguments[i][key];
+        }
+      }
+    }
+    return obj;
   };
 
 
