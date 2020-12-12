@@ -355,11 +355,24 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var containerObj = {};
+    return function () {
+      var keyString = JSON.stringify(arguments);
+      if (containerObj[keyString] === undefined) {
+        containerObj[keyString] = func.apply(this, arguments);
+        return containerObj[keyString];
+      } else {
+        return containerObj[keyString];
+      }
+      //check to see if that argument already exists in our object
+      //if it does, just return its value
+      //if it does not, add the argument as a key in the object, and the return of the function call as the value
+      //containerObj[argument] = function call of that argument
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
   // it with the arguments supplied.
-  //
   // The arguments for the original function are passed after the wait
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
