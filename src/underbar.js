@@ -222,7 +222,27 @@
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-    // TIP: Try re-using reduce() here.
+    var falseCounter = 0;
+    if (typeof(arguments[1]) !== 'function') {
+      _.each(collection, function (item) {
+        if (!item) {
+          falseCounter++;
+        }
+      });
+    } else {
+      _.each(collection, function (item) {
+        if (!iterator(item)) {
+          falseCounter++;
+        }
+      });
+    }
+    if (falseCounter > 0) {
+      return false;
+    } else {
+      return true;
+    }
+    //check to see if the return value is true or false
+    //if any of those are false, we return false
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
